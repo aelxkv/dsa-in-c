@@ -6,10 +6,10 @@ This repository contains array-based C implementations of core linear data struc
 
 | Structure | Description | File |
 |---|---|---|
-| Stack | LIFO (Last In, First Out) structure | [`stack.md`](stack.md) |
-| Queue | FIFO (First In, First Out) linear structure | [`queue.md`](queue.md) |
-| Circular Queue | Space-efficient FIFO structure that reuses freed slots | [`circular_queue.md`](circular_queue.md) |
-| Dequeue | Double-ended queue — insertion/deletion from both ends | [`dequeue.md`](dequeue.md) |
+| Stack | LIFO (Last In, First Out) structure | [`Stack/stack.md`](Stack/stack.md) |
+| Queue | FIFO (First In, First Out) linear structure | [`Queue/queue.md`](Queue/queue.md) |
+| Circular Queue | Space-efficient FIFO structure that reuses freed slots | [`Circular_Queue/circular_queue.md`](Circular_Queue/circular_queue.md) |
+| Dequeue | Double-ended queue — insertion/deletion from both ends | [`Double_Ended_Queue/dequeue.md`](Double_Ended_Queue/dequeue.md) |
 
 ## Design Notes
 
@@ -21,25 +21,55 @@ This repository contains array-based C implementations of core linear data struc
 
 ## How to Compile
 
-Each `.md` file contains a pseudocode outline and concept explanation; the actual `.c` source files live alongside them in this repo. To compile any of them:
+Each `.md` file contains a pseudocode outline and concept explanation; the matching `.c` source file lives in the same folder. To compile any of them:
 
 ```bash
+cd Stack
 gcc stack.c -o stack
 ./stack
 ```
 
 ## Comparison at a Glance
 
+**Stack (LIFO)** — insert/remove only at the top
+
 ```
-Stack (LIFO)          Queue (FIFO)              Circular Queue           Deque
-┌───┐                 ┌───┬───┬───┬───┐          ┌───┬───┬───┬───┐        ┌───┬───┬───┬───┐
-│ 3 │ <- top           F               R          wraps around →         insert/delete
-├───┤                 │ 1 │ 2 │ 3 │ 4 │           │ 4 │   │ 2 │ 3 │       at BOTH ends
-│ 2 │                 └───┴───┴───┴───┘           └───┴───┴───┴───┘        ↑         ↑
-├───┤                                              R       F             FRONT     REAR
+┌───┐
+│ 3 │ <- top
+├───┤
+│ 2 │
+├───┤
 │ 1 │
 └───┘
 ```
 
+**Queue (FIFO)** — insert at rear, remove from front
+
+```
+  F               R
+┌───┬───┬───┬───┐
+│ 1 │ 2 │ 3 │ 4 │
+└───┴───┴───┴───┘
+```
+
+**Circular Queue** — rear wraps back around to reuse freed space
+
+```
+┌───┬───┬───┬───┐
+│ 4 │   │ 2 │ 3 │
+└───┴───┴───┴───┘
+  R           F
+(wraps around)
+```
+
+**Dequeue** — insert/remove from BOTH ends
+
+```
+     ┌───┬───┬───┬───┐
+     │ 1 │ 2 │ 3 │ 4 │
+     └───┴───┴───┴───┘
+       ↑             ↑
+     FRONT          REAR
+```
+
 See each file for the full concept, diagram, and pseudocode.
-.
